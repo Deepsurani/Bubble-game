@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 1300px;
+            height: 500px;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        #lbl1 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 5px;
+        }
+
+        .bubble {
+            height: 50px;
+            width: 50px;
+            background-color: pink;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            position: absolute;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Get X and Y position of click event</h1>
+    <h2>Click on this box and press a key</h2>
+    <div id="box1" tabindex="0">
+        <label id="lbl1"></label>
+    </div>
+
+    <script>
+        var cursorX, cursorY;
+
+        document.getElementById("box1").addEventListener("mousemove", function(event) {
+
+            var rect = this.getBoundingClientRect();
+            cursorX = event.clientX - rect.left;
+            cursorY = event.clientY - rect.top;
+        });
+
+        document.getElementById("box1").addEventListener("mousemove", function(event) {
+            var l1 = document.getElementById("lbl1");
+            var newchar = event.key;
+            
+
+            l1.innerHTML = "X: " + cursorX + " Y: " + cursorY;
+
+            var b1 = document.createElement("span");
+            b1.className = "bubble";
+            // b1.innerHTML = newchar;
+
+            b1.style.left = cursorX + "px";
+            b1.style.top = cursorY + "px";
+            this.appendChild(b1);
+
+            var timer = setInterval(function () {
+        var currentTop = parseInt(b1.style.top);
+        b1.style.top = (currentTop - 1) + "px";
+        });
+    });
+    </script>
+</body>
+
+</html>
+mouse move
